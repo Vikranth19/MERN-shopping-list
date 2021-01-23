@@ -2,16 +2,24 @@ const express = require('express');
 var cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
+const dotenv = require('dotenv');
+// const config = require('config');
+
 
 const items = require('./routers/api/items');
+const users = require('./routers/api/users');
+const auth = require('./routers/api/auth');
 
 const app = express();
+
+dotenv.config({ path: './config.env' });
 
 app.use(cors());
 
 app.use(express.json()); 
 
-const db = require('./config/keys').mongoURI;
+// const db = config.get('mongoURI');
+const db =  process.env.MONGOURI;
 
 mongoose.connect(db,{
     useNewUrlParser: true,
@@ -24,6 +32,8 @@ mongoose.connect(db,{
 
 //use routes
 app.use('/api/items',items);
+app.use('/api/users',users);
+app.use('/api/auth',auth);
 
 //serve static assets if in production
 if(process.env.NODE_ENV === 'production'){

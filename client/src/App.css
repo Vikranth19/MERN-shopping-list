@@ -2,6 +2,18 @@
   margin-right: 0.5rem;
 }
 
+.item{
+  display: flex;
+}
+
+.update-btn{
+  margin-left: auto;
+}
+
+.edit-btn{
+  margin-left: 1vw;
+}
+
 .fade-enter{
   opacity: 0.01;
 }

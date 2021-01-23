@@ -5,7 +5,7 @@ import {
     Modal,
     Form,
 } from 'react-bootstrap'
-import {useDispatch } from 'react-redux'
+import {useDispatch,useSelector} from 'react-redux'
 import {addItem} from '../actions/itemActions';
 
 
@@ -14,6 +14,8 @@ function ItemModal() {
   const [name, setName] = useState('');
 
   const dispatch = useDispatch();
+
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -34,9 +36,13 @@ function ItemModal() {
 
   return (
     <>
+    {
+      isAuthenticated?
       <Button variant="primary" onClick={handleShow}>
         ADD ITEM
-      </Button>
+      </Button> :
+         <h4 className="mb-1 ml-2">Please log in to manage items</h4>
+    }
 
       <Modal
         show={show}

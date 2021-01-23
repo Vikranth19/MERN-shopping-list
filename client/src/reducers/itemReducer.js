@@ -1,4 +1,4 @@
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING} from '../actions/types';
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, UPDATE_ITEM} from '../actions/types';
 
 const initialState = {
 
@@ -13,6 +13,17 @@ const itemReducer = (state=initialState, action) => {
                 ...state,
                 items: action.payload,
                 loading: false
+            }
+
+        case UPDATE_ITEM:
+            const newArr = state.items.map((item) => {
+                if(action.payload.id === item._id) {
+                    return {...item, name: action.payload.res.data.name}
+                }
+                return item
+            })
+            return {
+                items: newArr,
             }
           
         case DELETE_ITEM:
@@ -37,4 +48,4 @@ const itemReducer = (state=initialState, action) => {
     }
 }
 
-export default itemReducer;
+export default itemReducer;  
